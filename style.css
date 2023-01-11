@@ -11,9 +11,14 @@ h2 {
 .grid_container {
   display: grid;
   width: 100vw;
+  gap: 5px;
   grid-template-columns: repeat(5, 1fr);
   background-color: aquamarine;
 }
 .grid_element {
   width: 15vw;
+  height: 15vw;
+}
+img {
+  background-size: cover;
 }

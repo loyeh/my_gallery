@@ -8,5 +8,6 @@ for (let i = 1; i < 52; i++) {
   element.setAttribute("class", "grid_element");
   element.classList.add(`item${i}`);
   element.append(image);
+  console.log(image.width, image.height);
   container.append(element);
 }
