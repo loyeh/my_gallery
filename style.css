@@ -1,24 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   justify-content: center;
-  background-color: aqua;
+  background-color: #a0e7e7;
 }
 h1,
 h2 {
   text-align: center;
-
-  width: 100vw;
 }
 .grid_container {
   display: grid;
-  width: 100vw;
-  gap: 5px;
+  margin: 1.25vw;
+  gap: 1vw;
   grid-template-columns: repeat(5, 1fr);
-  background-color: aquamarine;
+  grid-template-rows: repeat(11, 1fr);
+  /* background-color: aquamarine; */
 }
 .grid_element {
-  width: 15vw;
-  height: 15vw;
+  border-radius: 4px;
+  width: 18vw;
+  height: 12vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0.3vw 0.3vw 2px #000000aa;
 }
+
 img {
   background-size: cover;
 }
