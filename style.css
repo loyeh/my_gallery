@@ -1,0 +1,19 @@
+body {
+  justify-content: center;
+  background-color: aqua;
+}
+h1,
+h2 {
+  text-align: center;
+
+  width: 100vw;
+}
+.grid_container {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: aquamarine;
+}
+.grid_element {
+  width: 15vw;
+}
