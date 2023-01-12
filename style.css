@@ -17,12 +17,12 @@ h2 {
   margin: 1.25vw;
   gap: 1vw;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(11, 1fr);
+  /* grid-template-rows: repeat(11, 1fr); */
   /* background-color: aquamarine; */
 }
 .grid_element {
   border-radius: 4px;
-  width: 18vw;
+  width: auto;
   height: 12vw;
   overflow: hidden;
   display: flex;
@@ -30,7 +30,27 @@ h2 {
   justify-content: center;
   box-shadow: 0.3vw 0.3vw 2px #000000aa;
 }
-
-img {
-  background-size: cover;
+@media only screen and (800px <= width <= 1000px) {
+  .grid_container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid_element {
+    height: 16vw;
+  }
+}
+@media only screen and (500px <= width < 800px) {
+  .grid_container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid_element {
+    height: 22vw;
+  }
+}
+@media only screen and (width < 500px) {
+  .grid_container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid_element {
+    height: 32vw;
+  }
 }
