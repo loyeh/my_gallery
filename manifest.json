@@ -13,15 +13,16 @@
       "type": "image/png"
     },
     {
-      "src": "img/icons/gallery-28-64.png",
-      "sizes": "64x64",
-      "type": "image/png"
-    },
-    {
       "src": "img/icons/gallery-28-48.png",
       "sizes": "48x48",
       "type": "image/png"
     },
+    {
+      "src": "img/icons/gallery-28-64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+
     {
       "src": "img/icons/gallery-28-128.png",
       "sizes": "128x128",
