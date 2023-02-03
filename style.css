@@ -9,22 +9,42 @@ body {
   justify-content: center;
   background-color: #a0e7e7;
 }
-.popup {
-  position: fixed;
-  display: none;
-  top: 50vh;
-  left: 49vw;
-  translate: -50% -50%;
-  width: 75vw;
-  height: 75vh;
-  background-color: #a0e7e7;
-  z-index: 0;
-  opacity: 0;
+.blur {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
 }
+#popup {
+  position: fixed;
+  scale: 0;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  height: 85vh;
+  width: 85vw;
+  max-width: 1000px;
+  max-height: 750px;
+  transition: 200ms ease-in-out;
+  background-color: #000;
+  z-index: 10;
+}
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  scale: 0;
+  background-color: #000000aa;
+}
+#popup img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+div#popup.active,
 .active {
-  display: block;
-  opacity: 1;
-  z-index: 1;
+  /* width: fit-content; */
+  scale: 1;
 }
 h1,
 h2 {
@@ -35,8 +55,6 @@ h2 {
   margin: 8px;
   gap: 8px;
   grid-template-columns: repeat(5, 1fr);
-  /* grid-template-rows: repeat(11, 1fr); */
-  /* background-color: aquamarine; */
 }
 .grid_element {
   position: relative;
@@ -47,13 +65,8 @@ h2 {
   box-shadow: 3px 3px 4px #000000aa;
 }
 img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
   width: 100%;
   height: 100%;
-  justify-self: center;
   object-fit: cover;
   transition: 0.25s;
 }
