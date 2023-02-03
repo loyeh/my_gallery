@@ -28,6 +28,7 @@ function showImage(n) {
 }
 overlay.addEventListener("click", closeImage);
 function closeImage() {
+  image.setAttribute("src", ``);
   popup.classList.remove("active");
   overlay.classList.remove("active");
   container.classList.remove("blur");
