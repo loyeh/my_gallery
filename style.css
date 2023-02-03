@@ -42,7 +42,7 @@ body {
   object-fit: cover;
 }
 div#popup.active,
-.active {
+#overlay.active {
   /* width: fit-content; */
   scale: 1;
 }
