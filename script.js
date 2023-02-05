@@ -1,14 +1,12 @@
-const container = document.createElement("div");
-const overlay = document.createElement("div");
-container.setAttribute("class", "grid_container");
-const popup = document.createElement("div");
-popup.setAttribute("id", "popup");
-overlay.setAttribute("id", "overlay");
-const image = document.createElement("img");
-popup.appendChild(image);
-document.body.appendChild(container);
-document.body.appendChild(popup);
-document.body.appendChild(overlay);
+const overlay = document.getElementById("overlay");
+const popup = document.getElementById("popup");
+const container = document.getElementById("grid_container");
+const image = document.getElementById("image");
+const next = document.getElementById("next");
+const prev = document.getElementById("prev");
+const close = document.getElementById("close_button");
+var m;
+
 for (let i = 1; i < 52; i++) {
   const element = document.createElement("div");
   const image1 = document.createElement("img");
@@ -25,6 +23,8 @@ function showImage(n) {
   popup.classList.add("active");
   overlay.classList.add("active");
   container.classList.add("blur");
+  m = n;
+  return m;
 }
 overlay.addEventListener("click", closeImage);
 function closeImage() {
@@ -32,4 +32,13 @@ function closeImage() {
   popup.classList.remove("active");
   overlay.classList.remove("active");
   container.classList.remove("blur");
+}
+close.addEventListener("click", closeImage);
+next.addEventListener("click", nextImage);
+prev.addEventListener("click", previousImage);
+function nextImage() {
+  showImage(m + 1);
+}
+function previousImage() {
+  showImage(m - 1);
 }
