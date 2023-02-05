@@ -20,7 +20,6 @@ body {
   left: 7.5%;
   bottom: 7.5%;
   right: 7.5%;
-
   transition: 200ms ease-in-out;
   background-color: #00000033;
   z-index: 10;
