@@ -3,12 +3,62 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
-  padding: 1em;
-  position: relative;
-  justify-content: center;
-  background-color: #6f6fda;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+#background_image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  filter: blur(8px);
+}
+#main,
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #acacbd;
+  height: 100vh;
+  overflow: scroll;
+}
+#grid_container {
+  position: absolute;
+  top: 25vh;
+  left: 10vw;
+  right: 10vw;
+  display: grid;
+  margin: 8px;
+  gap: 0.5em;
+  /* translate: -10% 0%; */
+  grid-template-columns: repeat(5, 1fr);
+}
+.grid_element {
+  border-radius: 4px;
+  max-width: 200px;
+  max-height: 135px;
+  height: 10vw;
+  overflow: hidden;
+  opacity: 0.85;
+  box-shadow: 3px 3px 4px #000000aa;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.25s;
+}
+.grid_element img:hover {
+  scale: 1.05;
+}
+.selected {
+  opacity: 1;
+  border: 2px solid salmon;
+  box-shadow: 3px 3px 10px #ff0000, -3px -3px 10px #ff0000, -3px 3px 10px #ff0000, 3px -3px 10px #ff0000;
 }
 .blur {
   filter: blur(8px);
@@ -26,11 +76,6 @@ body {
   z-index: 10;
 }
 #overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   scale: 0;
   background-color: #000000aa;
 }
@@ -75,35 +120,13 @@ body {
 #next.hidden {
   display: none;
 }
-#grid_container {
-  display: grid;
-  margin: 8px;
-  gap: 0.5em;
-  grid-template-columns: repeat(5, 1fr);
-}
-.grid_element {
-  position: relative;
-  border-radius: 4px;
-  max-width: 250px;
-  height: 12vw;
-  overflow: hidden;
-  box-shadow: 3px 3px 4px #000000aa;
-}
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.25s;
-}
-.grid_element img:hover {
-  scale: 1.05;
-}
+
 @media only screen and (800px <= width <= 1000px) {
   #grid_container {
     grid-template-columns: repeat(4, 1fr);
   }
   .grid_element {
-    height: 15vw;
+    height: 12vw;
   }
 }
 @media only screen and (500px <= width < 800px) {
@@ -111,7 +134,7 @@ img {
     grid-template-columns: repeat(3, 1fr);
   }
   .grid_element {
-    height: 20vw;
+    height: 16vw;
   }
 }
 @media only screen and (width < 500px) {
@@ -119,6 +142,6 @@ img {
     grid-template-columns: repeat(2, 1fr);
   }
   .grid_element {
-    height: 30vw;
+    height: 25vw;
   }
 }
