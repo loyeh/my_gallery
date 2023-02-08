@@ -4,6 +4,7 @@ const container = document.getElementById("grid_container");
 const background_image = document.getElementById("background_image");
 const image = document.getElementById("image");
 const next = document.getElementById("next");
+const main = document.getElementById("main");
 const prev = document.getElementById("prev");
 const close = document.getElementById("close_button");
 let enlaged_image_number;
@@ -54,11 +55,17 @@ function closeImage() {
 
 function nextImage() {
   enlaged_image_number++;
+  if (enlaged_image_number == 52) {
+    enlaged_image_number = 51;
+  }
   showImage(enlaged_image_number);
 }
 
 function previousImage() {
   enlaged_image_number--;
+  if (enlaged_image_number == 0) {
+    enlaged_image_number = 1;
+  }
   showImage(enlaged_image_number);
 }
 function selectedImage(event) {
@@ -68,9 +75,40 @@ function selectedImage(event) {
   event.target.parentNode.classList.add("selected");
   let urlText = event.target.src.slice(21);
   background_image.setAttribute("src", urlText);
-  // console.log(urlText);
+  console.log(event.target.parentElement);
 }
 
+function keyboardAction(event) {
+  let selected = document.getElementsByClassName("selected");
+  let pressedKey = event.key;
+  console.log(event);
+  console.log(event.keyCode);
+
+  if (pressedKey == "ArrowRight") {
+    selected[0].nextElementSibling.classList.add("selected");
+    selected[0].classList.remove("selected");
+  }
+  if (pressedKey == "ArrowLeft") {
+    selected[0].previousSibling.classList.add("selected");
+    selected[1].classList.remove("selected");
+  }
+}
+
+function keyboardScroll(event) {
+  console.log(event);
+  let pressedKey = event.key;
+
+  if ($("#popup").hasClass("active")) {
+    if (pressedKey == "ArrowRight") {
+      nextImage();
+    }
+    if (pressedKey == "ArrowLeft") {
+      previousImage();
+    }
+  } else {
+    keyboardAction(event);
+  }
+}
 container.addEventListener("click", selectedImage);
 close.addEventListener("click", closeImage);
 next.addEventListener("click", nextImage);
