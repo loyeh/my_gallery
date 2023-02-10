@@ -84,11 +84,6 @@ function keyboardAction(event) {
   console.log(event);
   console.log(event.keyCode);
 
-  if (pressedKey == "Enter") {
-    let selectedImegeNumber = Number(selected[0].id.slice(-1));
-    showImage(selectedImegeNumber);
-  }
-
   if (pressedKey == "ArrowRight") {
     selected[0].nextElementSibling.classList.add("selected");
     selected[0].classList.remove("selected");
@@ -96,6 +91,10 @@ function keyboardAction(event) {
   if (pressedKey == "ArrowLeft") {
     selected[0].previousSibling.classList.add("selected");
     selected[1].classList.remove("selected");
+  }
+  if (pressedKey == "Enter") {
+    let selectedImegeNumber = Number(selected[0].id.slice(-1));
+    showImage(selectedImegeNumber);
   }
   let handler = selected[0].ondblclick;
   console.log(handler);
