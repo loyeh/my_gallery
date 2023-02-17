@@ -9,6 +9,7 @@ const prev = document.getElementById("prev");
 const close = document.getElementById("close_button");
 let enlarged_image_number;
 const grid_elements = document.getElementsByClassName("grid_element");
+const selected = document.getElementsByClassName("selected");
 
 // generating the tumbnail grid in the document object
 
@@ -18,7 +19,7 @@ for (let i = 1; i < 52; i++) {
   image1.setAttribute("src", `Img/tumb/piture_${i}.jpg`);
   element.setAttribute("class", "grid_element");
   element.setAttribute("ondblclick", `showImage(${i})`);
-  element.setAttribute("id", `item${i}`);
+  element.id = `item${i}`;
   element.append(image1);
   container.append(element);
 }
@@ -67,6 +68,10 @@ function previousImage() {
   }
   showImage(enlarged_image_number);
 }
+function unSelectedImage() {
+  this.classList.remove("selected");
+  background_image.setAttribute("src", "");
+}
 
 function selectedImage(event) {
   for (let i = 0; i < grid_elements.length; i++) {
@@ -78,37 +83,26 @@ function selectedImage(event) {
   console.log(event.target.parentElement);
 }
 
-function keyboardAction(event) {
-  let selected = document.getElementsByClassName("selected");
-  let pressedKey = event.key;
-  console.log(event);
-  console.log(event.keyCode);
+function nextImageSelection() {
+  selected[0].nextElementSibling.classList.add("selected");
+  selected[0].nextElementSibling.focus();
+  selected[0].classList.remove("selected");
+  selected[0].blur();
+}
 
-  if (pressedKey == "ArrowRight") {
-    selected[0].nextElementSibling.classList.add("selected");
-    selected[0].classList.remove("selected");
-  }
-  if (pressedKey == "ArrowLeft") {
-    selected[0].previousSibling.classList.add("selected");
-    selected[1].classList.remove("selected");
-  }
-  if (pressedKey == "Enter") {
-    let selectedImegeNumber = Number(selected[0].id.slice(-1));
-    showImage(selectedImegeNumber);
-  }
-  let handler = selected[0].ondblclick;
-  console.log(handler);
+function previouseImageSelection() {
+  selected[0].previousElementSibling.classList.add("selected");
+  selected[0].previousElementSibling.focus();
+  selected[0].classList.remove("selected");
+  selected[0].blur();
 }
 
 function mouseAction(event) {
-  const selected = document.getElementsByClassName("selected");
   let direction = event.deltaY;
   if (direction > 0) {
-    selected[0].nextElementSibling.classList.add("selected");
-    selected[0].classList.remove("selected");
+    nextImageSelection();
   } else {
-    selected[0].previousSibling.classList.add("selected");
-    selected[1].classList.remove("selected");
+    previouseImageSelection();
   }
 }
 
@@ -120,6 +114,23 @@ function mouseScroll(event) {
     else nextImage();
   } else {
     mouseAction(event);
+  }
+}
+
+function keyboardAction(event) {
+  let pressedKey = event.key;
+  console.log(event);
+  console.log(selected);
+
+  if (pressedKey == "ArrowRight") {
+    nextImageSelection();
+  }
+  if (pressedKey == "ArrowLeft") {
+    previouseImageSelection();
+  }
+  if (pressedKey == "Enter") {
+    let selectedImegeNumber = Number(selected[0].id.slice(-1));
+    showImage(selectedImegeNumber);
   }
 }
 

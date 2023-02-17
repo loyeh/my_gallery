@@ -12,7 +12,9 @@
   </head>
   <body onkeydown="keyboardScroll(event)" onwheel="mouseScroll(event)">
     <div id="main">
+      <input type="file" id="FileUpload" onchange="selectFolder(event)" webkitdirectory mozdirectory msdirectory odirectory directory multiple />
       <img id="background_image" src="" alt="" />
+      <div class="background_image" id=""></div>
       <div id="grid_container"></div>
       <div id="popup">
         <div id="close_button">✕</div>
