@@ -28,7 +28,7 @@ function gridMaker() {
     image1.src = URL.createObjectURL(file);
     image1.classList.add("grid_image");
     element.setAttribute("class", "grid_element");
-    // element.addEventListener("dbclick", (i) => showImage(i));
+    element.addEventListener("dblclick", largeImageShow);
     element.id = `item${i}`;
     element.append(image1);
     container.append(element);
@@ -192,17 +192,13 @@ function keyboardScroll(event) {
     keyboardAction(event);
   }
 }
-function largeImageShow() {
-  let selectedImegeNumber = 1;
-  if (selected.length > 0) {
-    selectedImegeNumber = Number(selected[0].id.slice(4));
-  }
-  showImage(selectedImegeNumber);
-  image.id = `image${selectedImegeNumber}`;
-  enlarged_image_number = selectedImegeNumber;
+function largeImageShow(event) {
+  const imageNumber = event.target.parentElement.id.slice(4);
+  showImage(imageNumber);
+  enlarged_image_number = imageNumber;
 }
 
-container.addEventListener("dbclick", largeImageShow);
+document.body.addEventListener("dblclick", largeImageShow);
 container.addEventListener("click", selectedImage);
 close.addEventListener("click", closeImage);
 next.addEventListener("click", nextImage);
