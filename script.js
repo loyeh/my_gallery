@@ -8,9 +8,9 @@ const main = document.getElementById("main");
 const prev = document.getElementById("prev");
 const close = document.getElementById("close_button");
 let enlarged_image_number;
+const selected = document.getElementsByClassName("selected");
 const grid_elements = document.getElementsByClassName("grid_element");
 const inputFile = document.getElementById("input_file");
-const selected = document.getElementsByClassName("selected");
 const files = inputFile.files;
 const filesArray = [...files];
 
@@ -21,6 +21,9 @@ function emptyContainer(container) {
   }
 }
 function gridMaker() {
+  const inputFile = document.getElementById("input_file");
+  const files = inputFile.files;
+  const filesArray = [...files];
   for (let i = 0; i < filesArray.length; i++) {
     const element = document.createElement("div");
     const image1 = document.createElement("img");
@@ -35,11 +38,10 @@ function gridMaker() {
   }
 }
 
-function inputFileAction(files, container) {
+function inputFileAction() {
   emptyContainer(container);
   gridMaker(files);
 }
-inputFile.onchange = inputFileAction(inputFile, container);
 const gridImage = document.getElementsByClassName("grid_image");
 
 function showImage(i) {
@@ -197,6 +199,8 @@ function largeImageShow(event) {
   showImage(imageNumber);
   enlarged_image_number = imageNumber;
 }
+
+// inputFile.addEventListener = inputFileAction(inputFile, container);
 
 document.body.addEventListener("dblclick", largeImageShow);
 container.addEventListener("click", selectedImage);
