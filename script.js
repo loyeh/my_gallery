@@ -9,29 +9,46 @@ const prev = document.getElementById("prev");
 const close = document.getElementById("close_button");
 let enlarged_image_number;
 const grid_elements = document.getElementsByClassName("grid_element");
+const inputFile = document.getElementById("input_file");
 const selected = document.getElementsByClassName("selected");
+const files = inputFile.files;
+const filesArray = [...files];
 
 // generating the tumbnail grid in the document object
-
-for (let i = 1; i < 52; i++) {
-  const element = document.createElement("div");
-  const image1 = document.createElement("img");
-  image1.setAttribute("src", `Img/tumb/piture_${i}.jpg`);
-  element.setAttribute("class", "grid_element");
-  element.setAttribute("ondblclick", `showImage(${i})`);
-  element.id = `item${i}`;
-  element.append(image1);
-  container.append(element);
+function emptyContainer(container) {
+  while (container.hasChildNodes()) {
+    container.removeChild(container.firstChild);
+  }
+}
+function gridMaker() {
+  for (let i = 0; i < filesArray.length; i++) {
+    const element = document.createElement("div");
+    const image1 = document.createElement("img");
+    const file = filesArray[i];
+    image1.src = URL.createObjectURL(file);
+    image1.classList.add("grid_image");
+    element.setAttribute("class", "grid_element");
+    // element.addEventListener("dbclick", (i) => showImage(i));
+    element.id = `item${i}`;
+    element.append(image1);
+    container.append(element);
+  }
 }
 
-function showImage(n) {
-  image.setAttribute("src", `Img/piture_${n}.jpg`);
-  background_image.setAttribute("src", `Img/tumb/piture_${n}.jpg`);
+function inputFileAction(files, container) {
+  emptyContainer(container);
+  gridMaker(files);
+}
+inputFile.onchange = inputFileAction(inputFile, container);
+const gridImage = document.getElementsByClassName("grid_image");
+
+function showImage(i) {
+  image.src = URL.createObjectURL(filesArray[i]);
+  background_image.src = URL.createObjectURL(filesArray[i]);
   popup.classList.add("active");
   overlay.classList.add("active");
   container.classList.add("blur");
-  enlarged_image_number = n;
-  if (enlarged_image_number > 50) {
+  if (enlarged_image_number >= files.length) {
     next.classList.add("hidden");
   }
   if (enlarged_image_number >= 2) {
@@ -40,14 +57,14 @@ function showImage(n) {
   if (enlarged_image_number < 2) {
     prev.classList.add("hidden");
   }
-  if (enlarged_image_number <= 50) {
+  if (enlarged_image_number < files.length) {
     next.classList.remove("hidden");
   }
-  return enlarged_image_number;
 }
 
 function closeImage() {
-  image.setAttribute("src", ``);
+  background_image.src = "";
+  image.src = "";
   popup.classList.remove("active");
   overlay.classList.remove("active");
   container.classList.remove("blur");
@@ -55,8 +72,8 @@ function closeImage() {
 
 function nextImage() {
   enlarged_image_number++;
-  if (enlarged_image_number == 52) {
-    enlarged_image_number = 51;
+  if (enlarged_image_number > inputFile.files.length) {
+    enlarged_image_number = inputFile.files.length;
   }
   showImage(enlarged_image_number);
 }
@@ -68,9 +85,10 @@ function previousImage() {
   }
   showImage(enlarged_image_number);
 }
-function unSelectedImage() {
-  this.classList.remove("selected");
-  background_image.setAttribute("src", "");
+function unSelectImage() {
+  selected[0].classList.remove("selected");
+
+  background_image.src = "";
 }
 
 function selectedImage(event) {
@@ -78,39 +96,48 @@ function selectedImage(event) {
     grid_elements[i].classList.remove("selected");
   }
   event.target.parentNode.classList.add("selected");
-  let urlText = event.target.src.slice(21);
-  background_image.setAttribute("src", urlText);
+  let number = event.target.parentNode.id.slice(4);
+  background_image.src = URL.createObjectURL(filesArray[number]);
   console.log(event.target.parentElement);
 }
 
 function nextImageSelection() {
   selected[0].nextElementSibling.classList.add("selected");
-  selected[0].nextElementSibling.focus();
   selected[0].classList.remove("selected");
-  selected[0].blur();
+  let number = selected[0].id.slice(4);
+  background_image.src = URL.createObjectURL(filesArray[number]);
 }
 
-function previouseImageSelection() {
-  selected[0].previousElementSibling.classList.add("selected");
-  selected[0].previousElementSibling.focus();
-  selected[0].classList.remove("selected");
-  selected[0].blur();
+function previouseImageSelection(imageNumber) {
+  const selectedImage = document.getElementById(`item${imageNumber}`);
+  selectedImage.classList.remove("selected");
+  selectedImage.previousElementSibling.classList.add("selected");
+  let number = selected[0].id.slice(4);
+  background_image.src = URL.createObjectURL(filesArray[number]);
 }
 
 function mouseAction(event) {
+  let selectedImegeNumber = 1;
+  if (selected.length > 0) {
+    selectedImegeNumber = Number(selected[0].id.slice(4));
+  }
   let direction = event.deltaY;
   if (direction > 0) {
     nextImageSelection();
   } else {
-    previouseImageSelection();
+    previouseImageSelection(selectedImegeNumber);
   }
+  console.log(event);
 }
 
 function mouseScroll(event) {
-  console.log(event);
+  let selectedImegeNumber = 1;
+  if (selected.length > 0) {
+    selectedImegeNumber = Number(selected[0].id.slice(4));
+  }
   let direction = event.deltaY;
   if ($("#popup").hasClass("active")) {
-    if (direction < 0) previousImage();
+    if (direction < 0) previousImage(selectedImegeNumber);
     else nextImage();
   } else {
     mouseAction(event);
@@ -118,6 +145,10 @@ function mouseScroll(event) {
 }
 
 function keyboardAction(event) {
+  let selectedImegeNumber = 1;
+  if (selected.length > 0) {
+    selectedImegeNumber = Number(selected[0].id.slice(4));
+  }
   let pressedKey = event.key;
   console.log(event);
   console.log(selected);
@@ -126,15 +157,24 @@ function keyboardAction(event) {
     nextImageSelection();
   }
   if (pressedKey == "ArrowLeft") {
-    previouseImageSelection();
+    previouseImageSelection(selectedImegeNumber);
   }
   if (pressedKey == "Enter") {
-    let selectedImegeNumber = Number(selected[0].id.slice(-1));
     showImage(selectedImegeNumber);
+    image.id = `image${selectedImegeNumber}`;
+    enlarged_image_number = selectedImegeNumber;
+    console.log(selectedImegeNumber);
+  }
+  if (pressedKey == "Escape") {
+    unSelectImage();
   }
 }
 
 function keyboardScroll(event) {
+  let selectedImegeNumber = 1;
+  if (selected.length > 0) {
+    selectedImegeNumber = Number(selected[0].id.slice(4));
+  }
   console.log(event);
   let pressedKey = event.key;
 
@@ -143,7 +183,7 @@ function keyboardScroll(event) {
       nextImage();
     }
     if (pressedKey == "ArrowLeft") {
-      previousImage();
+      previousImage(selectedImegeNumber);
     }
     if (pressedKey == "Escape") {
       closeImage();
@@ -152,38 +192,20 @@ function keyboardScroll(event) {
     keyboardAction(event);
   }
 }
-
-function getGridData() {
-  // calc computed style
-  const gridComputedStyle = window.getComputedStyle(grid_container);
-
-  return {
-    // get number of grid rows
-    gridRowCount: gridComputedStyle.getPropertyValue("grid-template-rows").split(" ").length,
-    // get number of grid columns
-    gridColumnCount: gridComputedStyle.getPropertyValue("grid-template-columns").split(" ").length,
-    // get grid row sizes
-    gridRowSizes: gridComputedStyle.getPropertyValue("grid-template-rows").split(" ").map(parseFloat),
-    // get grid column sizes
-    gridColumnSizes: gridComputedStyle.getPropertyValue("grid-template-columns").split(" ").map(parseFloat),
-  };
+function largeImageShow() {
+  let selectedImegeNumber = 1;
+  if (selected.length > 0) {
+    selectedImegeNumber = Number(selected[0].id.slice(4));
+  }
+  showImage(selectedImegeNumber);
+  image.id = `image${selectedImegeNumber}`;
+  enlarged_image_number = selectedImegeNumber;
 }
 
-window.addEventListener("DOMContentLoaded", outputGridData);
-window.addEventListener("resize", outputGridData);
-
-function outputGridData() {
-  const gridData = getGridData();
-  return {
-    Rows: gridData.gridRowCount,
-    Columns: gridData.gridColumnCount,
-    Rows_sizes: gridData.gridRowSizes,
-    Column_sizes: gridData.gridColumnSizes,
-  };
-}
-
+container.addEventListener("dbclick", largeImageShow);
 container.addEventListener("click", selectedImage);
 close.addEventListener("click", closeImage);
 next.addEventListener("click", nextImage);
 prev.addEventListener("click", previousImage);
 overlay.addEventListener("click", closeImage);
+background_image.addEventListener("click", unSelectImage);
