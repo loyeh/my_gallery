@@ -4,11 +4,198 @@
   box-sizing: border-box;
 }
 body {
-  height: 100vh;
+  height: 14vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  margin: 0;
+
+  overflow: hidden;
+
+  background-color: #ffb457;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--duration);
 }
+html {
+  box-sizing: border-box;
+  --bgColorMenu: #1d1d27;
+  --duration: 0.7s;
+}
+.svg-container {
+  rotate: 180deg;
+}
+
+html *,
+html *::before,
+html *::after {
+  box-sizing: inherit;
+}
+#menu_back {
+  height: 6.6em;
+  background-color: black;
+  width: 100vw;
+  position: fixed;
+}
+
+body {
+}
+
+.menu {
+  margin: 0;
+  display: flex;
+  /* Works well with 100% width  */
+  width: 100%;
+  font-size: 1.5em;
+  padding-inline: 2.85em;
+  padding-top: 0.9em;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bgColorMenu);
+  top: 0;
+}
+.item_text {
+  scale: 0;
+  font-size: 0.75em;
+  position: absolute;
+  color: white;
+}
+
+.menu__item {
+  all: unset;
+  scale: 0.75;
+  flex-grow: 1;
+  z-index: 100;
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
+  align-items: center;
+  will-change: transform;
+  justify-content: center;
+  padding: 0.15em 0 0.25em;
+  transition: transform var(--timeOut, var(--duration));
+}
+
+.menu__item::before {
+  content: "";
+  z-index: -1;
+  width: 3.6em;
+  height: 3.6em;
+  border-radius: 50%;
+  position: absolute;
+  transform: scale(0);
+  /* border: 30px black solid; */
+  transition: background-color var(--duration), transform var(--duration);
+}
+.item_text.active {
+  scale: 1.2;
+  top: -2em;
+}
+.item_text.active::before {
+  transform: scale(1);
+  background-color: var(--bgColorItem);
+}
+
+.menu__item.active {
+  transform: translate3d(0, 0.8em, 0);
+}
+
+.menu__item.active::before {
+  transform: scale(1);
+  background-color: var(--bgColorItem);
+}
+
+.icon {
+  width: 2.6em;
+  height: 2.6em;
+  stroke: white;
+  fill: transparent;
+  stroke-width: 1pt;
+  stroke-miterlimit: 10;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-dasharray: 400;
+}
+
+.menu__item.active .icon {
+  animation: strok 1.5s reverse;
+}
+
+@keyframes strok {
+  100% {
+    stroke-dashoffset: 400;
+  }
+}
+
+.menu__border {
+  rotate: 180deg;
+  left: 0;
+  top: 99%;
+  /* font-size: 18px; */
+  width: 8.9em;
+  height: 2em;
+  position: absolute;
+  clip-path: url(#menu);
+  will-change: transform;
+  background-color: var(--bgColorMenu);
+  transition: transform var(--timeOut, var(--duration));
+}
+
+.svg-container {
+  width: 0;
+  height: 0;
+}
+input {
+  /* display: none; */
+}
+label {
+  font-size: 4em;
+  cursor: pointer;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  translate: -50% -100%;
+  color: white;
+  white-space: nowrap;
+}
+#openMenu {
+  position: fixed;
+  scale: 0;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 36em;
+  aspect-ratio: 2;
+  border-radius: 10px;
+  background-color: #83838373;
+  transition: 0.5s ease-in-out;
+}
+#openMenu.active {
+  scale: 1;
+}
+@media screen and (min-width: 1200px) {
+  body {
+    font-size: 1.4em;
+  }
+}
+@media screen and (801px <= width <= 1200px) {
+  body {
+    font-size: 1.2em;
+  }
+}
+@media screen and (551px <= width <= 800px) {
+  body {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  body {
+    font-size: 0.8em;
+  }
+}
+
 #background_image {
   position: fixed;
   /* top: 0;
@@ -22,15 +209,17 @@ body {
 
   filter: blur(8px);
 }
-
+#main {
+  scale: 0;
+}
 #main,
 #overlay {
   position: fixed;
-  top: 0;
+  top: 14vh;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #acacbd;
+  /* background-color: #acacbd; */
   height: 100vh;
   overflow: scroll;
 }

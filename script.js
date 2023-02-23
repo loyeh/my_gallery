@@ -10,7 +10,7 @@ const close = document.getElementById("close_button");
 let enlarged_image_number;
 const selected = document.getElementsByClassName("selected");
 const grid_elements = document.getElementsByClassName("grid_element");
-const inputFile = document.getElementById("input_file");
+const inputFile = document.getElementById("file_input");
 const files = inputFile.files;
 const filesArray = [...files];
 
@@ -21,7 +21,7 @@ function emptyContainer(container) {
   }
 }
 function gridMaker() {
-  const inputFile = document.getElementById("input_file");
+  const inputFile = document.getElementById("file_input");
   const files = inputFile.files;
   const filesArray = [...files];
   for (let i = 0; i < filesArray.length; i++) {
@@ -39,6 +39,7 @@ function gridMaker() {
 }
 
 function inputFileAction() {
+  main.style.scale = 1;
   emptyContainer(container);
   gridMaker(files);
 }
@@ -195,7 +196,7 @@ function keyboardScroll(event) {
   }
 }
 function largeImageShow(event) {
-  const imageNumber = event.target.parentElement.id.slice(4);
+  const imageNumber = event.target.parentNode.id.slice(4);
   showImage(imageNumber);
   enlarged_image_number = imageNumber;
 }
