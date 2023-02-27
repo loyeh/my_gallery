@@ -1,0 +1,116 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to right, #5de6eb, #026e78);
+}
+:root {
+  --flex_percent: 100%;
+  --grid_column: 1;
+  --column_with: calc(60vw / var(--grid_column));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.grid_container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10vw;
+  /* background-color: #6a6a6a; */
+  /* align-items: center; */
+  justify-content: center;
+}
+.grid_container .grid_column {
+  flex: var(--flex_percent);
+  padding: 0.5em;
+  height: fit-content;
+}
+.grid_container .grid_column .img {
+  width: 100%;
+  margin: 0.5em;
+  /* border: 2px solid #0b6366; */
+  display: none;
+  border-radius: 5px;
+  box-shadow: 4px 4px 6px #053085bc;
+}
+.welcomtext {
+  width: 50vw;
+  text-align: center;
+  font-size: 2em;
+  line-height: 1.4em;
+}
+.welcomtext span {
+  line-height: 1.2em;
+  display: block;
+  font-size: 0.6em;
+}
+span strong {
+  text-decoration: underline;
+}
+.menu {
+  opacity: 0.85;
+  padding-top: 4em;
+  width: 14vh;
+  height: 100vh;
+  position: fixed;
+  left: -12vh;
+  top: 0;
+  background-color: #131f39;
+  transition: 0.3s ease;
+}
+.menu:hover {
+  left: 0;
+}
+.grid_column {
+  width: clamp(150px, var(--column_with), 200px);
+}
+label {
+  color: #a5a5a5;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease-in-out;
+  /* position: absolute; */
+  left: 0;
+  right: 0;
+  top: 0;
+  font-size: 0.8em;
+  bottom: 0;
+  margin: 0.4em;
+}
+.icon {
+  filter: brightness(0) saturate(100%) invert(79%) sepia(0%) saturate(4951%) hue-rotate(171deg) brightness(87%) contrast(79%);
+  display: block;
+  margin-block: 1em;
+  height: 2em;
+  transition: 0.5s ease-in-out;
+}
+.menu_file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.file_item {
+  width: 8em;
+  padding-block: 2em;
+  /* background-color: blueviolet; */
+  /* border: 2px solid black; */
+}
+
+label:hover {
+  color: #f5deb3;
+  scale: 1.1;
+}
+label:hover .icon {
+  filter: brightness(0) saturate(100%) invert(86%) sepia(21%) saturate(512%) hue-rotate(343deg) brightness(104%) contrast(92%);
+}

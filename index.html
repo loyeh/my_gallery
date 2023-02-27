@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- <script src="https://kit.fontawesome.com/ea81b98d63.js" crossorigin="anonymous"></script> -->
+    <title>Gallery</title>
+  </head>
+  <body>
+    <div class="grid_container" id="grid_container">
+      <div class="welcomtext">
+        Welcom to looyeh image Gallery
+        <br /><br />
+        <span> Move your mouse curser to the left edge of your screen to display the <strong>Navbar</strong></span>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <div class="menu_file">
+        <div class="file_item" id="files">
+          <label for="inputFiles">
+            <img src="svg/file-lines.svg" alt="" class="icon" id="inputFileIcon" />Select Files
+            <input type="file" id="inputFiles" accept="image/*" multiple style="display: none" />
+          </label>
+        </div>
+        <div class="file_item" id="folder">
+          <label for="inputFolder">
+            <img src="svg/folder-open.svg" alt="" class="icon" id="inputFolderIcon" />Select Folder
+            <input type="file" id="inputFolder" accept="image/*" directory webkitdirectory style="display: none" />
+          </label>
+        </div>
+      </div>
+    </nav>
+    <script src="script.js"></script>
+  </body>
+</html>
