@@ -4,6 +4,7 @@ body {
   justify-content: center;
   height: 100vh;
   background: linear-gradient(to right, #5de6eb, #026e78);
+  user-select: none;
 }
 :root {
   --flex_percent: 100%;
@@ -28,6 +29,7 @@ body {
   /* background-color: #6a6a6a; */
   /* align-items: center; */
   justify-content: center;
+  user-select: none;
 }
 .grid_container .grid_column {
   flex: var(--flex_percent);

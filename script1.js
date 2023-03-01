@@ -172,11 +172,13 @@ function unSelectImage() {
   selected[0].classList.remove("selected");
 }
 const grid_elements = document.getElementsByClassName("grid_element");
+
 function selectedImage(event) {
   for (let i = 0; i < grid_elements.length; i++) {
     grid_elements[i].classList.remove("selected");
   }
   event.target.parentNode.classList.add("selected");
+  document.body.classList.remove("selected");
   src_text = event.target.src;
   return src_text;
 }
