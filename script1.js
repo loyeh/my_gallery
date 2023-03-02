@@ -4,7 +4,7 @@ const inputFolder = document.getElementById("inputFolder");
 const root = document.querySelector(":root");
 let availableWidth = window.innerWidth;
 let containerWidth = grid_container.clientWidth;
-let gridColumnCount = Math.trunc(availableWidth / 350) + 1;
+let gridColumnCount = Math.trunc(availableWidth / 300) + 1;
 let flexPercent, files;
 const arrayImage = [];
 const overlay = document.getElementById("overlay");
@@ -19,7 +19,7 @@ const enlarged_image = document.getElementById("enlarged_image");
 function grid_parameter_calculator() {
   availableWidth = window.innerWidth;
 
-  gridColumnCount = Math.trunc(availableWidth / 350) + 1;
+  gridColumnCount = Math.trunc(availableWidth / 300) + 1;
   flexPercent = 100 / gridColumnCount + "%";
   root.style.setProperty("--grid_column", gridColumnCount);
   root.style.setProperty("--flex_percent", flexPercent);
@@ -50,7 +50,12 @@ inputFolder.onchange = () => {
   return files;
 };
 
-function gridMaker(files) {
+//creating image grid for showing all images tumbnail at first.
+//this function works with two input variables:
+//1st is the file list created by the input tag in html. its type is <<<< Dom object list >>>>.
+//2nd is the condition in with the function animates the output or not and its is <<<< BOOLEAN >>>>.
+
+function gridMaker(files, isAnimate = true) {
   grid_container.innerHTML = "";
   let gridColumnCount = grid_parameter_calculator();
   let columnArray = columnMaker(gridColumnCount);
@@ -65,20 +70,25 @@ function gridMaker(files) {
       if (imageFile.type.slice(0, 5) == "image") {
         let parent_column = parent_with_min_height(columns);
         const image = creatImage(URL.createObjectURL(imageFile));
+        if (!isAnimate) {
+          image.setAttribute("style", "display:initial");
+        }
         arrayImage[key] = image.firstChild;
 
-        image.classList.add("animate__animated", "animate__zoomIn");
         parent_column.appendChild(image);
       }
     }
-    // animate images show
-    // let i = 0;
-    // let clearTime = setInterval(() => {
-    //   arrayImage[i].setAttribute("style", "display:initial");
-    //   arrayImage[i].
-    //   i++;
-    //   i == arrayImage.length ? clearInterval(clearTime) : undefined;
-    // }, 200);
+    // animate images show if isAnimate has been set as <<< true >>>
+
+    if (isAnimate) {
+      let i = 0;
+      let clearTime = setInterval(() => {
+        arrayImage[i].setAttribute("style", "display:initial");
+        arrayImage[i].classList.add("animate__animated", "animate__zoomIn");
+        i++;
+        i == arrayImage.length ? clearInterval(clearTime) : undefined;
+      }, 200);
+    }
   }
 }
 
@@ -123,7 +133,7 @@ function creatImage(imageSrc) {
 window.addEventListener("resize", () => {
   const nCol = grid_parameter_calculator();
   if (nCol != gridColumnCount) {
-    gridMaker(files);
+    gridMaker(files, false);
   }
 });
 

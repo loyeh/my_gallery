@@ -2,7 +2,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 100dvh;
   background: linear-gradient(to right, #5de6eb, #026e78);
   user-select: none;
 }
@@ -19,7 +19,7 @@ body {
 }
 .grid_container {
   position: absolute;
-  left: 0;
+  left: 3em;
   top: 0;
   right: 0;
   bottom: 0;
@@ -37,7 +37,7 @@ body {
 }
 .grid_container .grid_column .img {
   width: 100%;
-  /* display: none; */
+  display: none;
 }
 .grid_container .grid_column .img:hover {
   scale: 1.05;
@@ -91,7 +91,7 @@ span strong {
   justify-content: center;
   opacity: 0.85;
   width: 3em;
-  height: 100vh;
+  height: 100dvh;
   left: 0vh;
   font-size: 0.75em;
   top: 0;
