@@ -69,7 +69,8 @@ function gridMaker(files, isAnimate = true) {
       const imageFile = files[key];
       if (imageFile.type.slice(0, 5) == "image") {
         let parent_column = parent_with_min_height(columns);
-        const image = creatImage(URL.createObjectURL(imageFile));
+        const image_url = URL.createObjectURL(imageFile);
+        const image = creatImage(image_url);
         if (!isAnimate) {
           image.setAttribute("style", "display:initial");
         }
