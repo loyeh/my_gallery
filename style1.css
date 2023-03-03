@@ -83,6 +83,8 @@ body {
 span strong {
   text-decoration: underline;
 }
+#enlarged_image {
+}
 .menu {
   position: fixed;
   display: flex;
@@ -157,20 +159,26 @@ label:hover .icon {
   position: fixed;
   scale: 0;
   top: 7.5%;
-  left: 7.5%;
+  /* left: 7.5%; */
   bottom: 7.5%;
-  right: 7.5%;
+  /* right: 7.5%; */
   transition: 200ms ease-in-out;
   background-color: #00000033;
   z-index: 10;
+  width: 80vw;
+  padding-inline: 2em;
 }
 #overlay {
   scale: 0;
   width: 100vw;
   height: 100vh;
   background-color: #000000aa;
+  position: fixed;
+  z-index: 9;
 }
 #popup img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 #popup.active,
@@ -187,10 +195,11 @@ label:hover .icon {
   cursor: pointer;
   text-shadow: 0px 0px 5px black;
 }
-#next {
+#next,
+#prev {
   position: absolute;
   top: 50%;
-  right: 2%;
+  right: 1%;
   color: white;
   font-size: 3em;
   cursor: pointer;
@@ -198,14 +207,7 @@ label:hover .icon {
   text-shadow: 0px 0px 5px black;
 }
 #prev {
-  position: absolute;
-  top: 50%;
-  left: 2%;
-  color: white;
-  font-size: 3em;
-  cursor: pointer;
-  translate: 0 -50%;
-  text-shadow: 0px 0px 5px black;
+  left: 1%;
 }
 #prev.hidden,
 #next.hidden {
